@@ -10,6 +10,7 @@ describe Movies do
 
     describe '#films' do
       it 'should list movies' do
+        VCR.use_cassette 'search' do
         expect(search.films).to eq [
         "Biệt Đội Cảm Tử - Suicide Squad (NC16)",
         "Vùng Nước Tử Thần - The Shallows (NC16)",
@@ -34,6 +35,7 @@ describe Movies do
 "Mỹ Nhân Ngư - The Mermaid"]
       end
     end
+  end
     
     describe '#agent' do
       it 'should be an instance of Mechanize' do
@@ -42,8 +44,10 @@ describe Movies do
     end
     describe '#page' do
       it 'should visit website "http://123phim.vn"' do
-        expect(search.page).to be_a Mechanize::Page
-        expect(search.page.uri.to_s).to eq "http://www.123phim.vn/phim"
+        VCR.use_cassette 'search' do
+          expect(search.page).to be_a Mechanize::Page
+          expect(search.page.uri.to_s).to eq "http://www.123phim.vn/phim"
+        end
       end
     end
 
