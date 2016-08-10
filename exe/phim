@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'movies'
+puts Movies::Search.new.films
